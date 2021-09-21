@@ -14,7 +14,7 @@ class ImageModel:
     Contains functions that are common across the super-scaling models.
     """
     
-    def predict(self, input_image_array, by_patch_of_size=None, batch_size=10, padding_size=2):
+    def predict(self, imgInfo='', input_image_array, by_patch_of_size=None, batch_size=10, padding_size=2):
         """
         Processes the image array into a suitable format
         and transforms the network output in a suitable image format.
@@ -39,7 +39,7 @@ class ImageModel:
             numPatches = len(patches)
             # return patches
             for i in range(0, len(patches), batch_size):
-                patstr = "Patch-" + str(i+1) + " of " + str(numPatches)
+                patstr = imgInfo + "Patch-" + str(i+1) + " of " + str(numPatches)
                 print(patstr)
                 batch = self.model.predict(patches[i: i + batch_size])
                 if i == 0:
