@@ -36,8 +36,11 @@ class ImageModel:
             patches, p_shape = split_image_into_overlapping_patches(
                 lr_img, patch_size=by_patch_of_size, padding_size=padding_size
             )
+            numPatches = len(patches)
             # return patches
             for i in range(0, len(patches), batch_size):
+                patstr = "Patch-" + str(i+1) + " of " + str(numPatches)
+                print(patstr)
                 batch = self.model.predict(patches[i: i + batch_size])
                 if i == 0:
                     collect = batch
