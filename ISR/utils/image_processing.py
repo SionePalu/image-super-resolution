@@ -98,6 +98,8 @@ def stich_together(patches, padded_image_shape, target_shape, padding_size=4):
         padding_size: size of the overlapping area.
     """
     
+    print('stich_together')
+    
     xmax, ymax, _ = padded_image_shape
     patches = unpad_patches(patches, padding_size)
     patch_size = patches.shape[1]
