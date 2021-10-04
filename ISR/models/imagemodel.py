@@ -37,6 +37,9 @@ class ImageModel:
                 lr_img, patch_size=by_patch_of_size, padding_size=padding_size
             )
             numPatches = len(patches)
+            print('patches type: ', type(patches))
+            print('p_shape type: ', type(p_shape))
+            
             # return patches
             for i in range(0, len(patches), batch_size):
                 patstr = imgInfo + "Patch-" + str(i+1) + " of " + str(numPatches)
@@ -46,6 +49,7 @@ class ImageModel:
                     collect = batch
                 else:
                     collect = np.append(collect, batch, axis=0)
+                    print('collect shape: ', list(collect.shape))
             
             scale = self.scale
             padded_size_scaled = tuple(np.multiply(p_shape[0:2], scale)) + (3,)
