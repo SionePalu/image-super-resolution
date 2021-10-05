@@ -16,8 +16,8 @@ def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
     print('patchIdx#', str(patchIdx))
     patchArray = listOfLists[1]
     predictedPatchArray = isrModel.predict(patchArray)
-    returnTup = (patchIdx, predictedPatchArray)
-    return returnTup
+    retTup = (patchIdx, predictedPatchArray)
+    return retTup
 
 def toCollectPatches(listOfTuples: list):
     lenT = len(listOfTuples)
@@ -27,7 +27,8 @@ def toCollectPatches(listOfTuples: list):
         imgShp = imgPatch.shape
         lenH += imgShp[1]
      
-    ent1 = listOfTuples[0]
+    ent1 = listOfTuples[0][1]
+    return ent1
     
 
 class ImageModel:
@@ -90,7 +91,12 @@ class ImageModel:
                resultsDict_items = resultsDict.items()
             
                sorted_resultsDict_items = sorted(resultsDict_items)
-                 
+                
+#              Use parallel list or normal list. For now use 'normal'
+               sorted_list_items = list(sorted_resultsDict_items)
+                
+               collect = toCollectPatches(sorted_list_items)
+        
             else:
                # return patches
                for i in range(0, len(patches), batch_size):
