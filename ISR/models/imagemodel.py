@@ -19,7 +19,16 @@ def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
     returnTup = (patchIdx, predictedPatchArray)
     return returnTup
 
-def toCollectPatches(listOfLists: list, isrModel: ImageModel):
+def toCollectPatches(listOfTuples: list):
+    lenT = len(listOfTuples)
+    lenH = 0
+    for TP in listOfTuples:
+        imgPatch = TP[1]
+        imgShp = imgPatch.shape
+        lenH += imgShp[1]
+     
+    ent1 = listOfTuples[0]
+    
 
 class ImageModel:
     """ISR models parent class.
