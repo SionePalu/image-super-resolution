@@ -16,8 +16,8 @@ def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
     print('patchIdx#', str(patchIdx))
     patchArray = listOfLists[1]
     predictedPatchArray = isrModel.predict(patchArray)
-    returnList = [patchIdx, predictedPatchArray]
-    return returnList
+    returnTup = (patchIdx, predictedPatchArray)
+    return returnTup
 
 class ImageModel:
     """ISR models parent class.
@@ -63,15 +63,14 @@ class ImageModel:
                ncpu = mp.cpu_count()
                print("Number of processors: ", ncpu)
                print(' ')
-           
+               
+               resultsDict = {}
                pool = mp.Pool(ncpu)
 #     predictSinglePatch(listOfLists: list, isrModel: ImageModel)
                with Pool(processes=ncpu) as pool:
                   poolObjList = pool.starmap(predictSinglePatch, zip( listOfLists, repeat(self) ))
                   
-                  for objL in poolObjList:
-                    if len(objL) > 0:
-                      self.results.append(objL)
+                  resultsDict = manager.dict(poolObjList)
             
                   pool.close()
                  
