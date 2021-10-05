@@ -19,6 +19,8 @@ def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
     returnTup = (patchIdx, predictedPatchArray)
     return returnTup
 
+def toCollectPatches(listOfLists: list, isrModel: ImageModel):
+
 class ImageModel:
     """ISR models parent class.
 
@@ -41,7 +43,9 @@ class ImageModel:
         Returns:
             sr_img: image output.
         """
-        
+        if len(imgInfo) > 0:
+            print('imgInfo : ', imgInfo)
+            
         if by_patch_of_size:
             lr_img = process_array(input_image_array, expand=False)
             patches, p_shape = split_image_into_overlapping_patches(
@@ -73,6 +77,10 @@ class ImageModel:
                   resultsDict = manager.dict(poolObjList)
             
                   pool.close()
+                
+               resultsDict_items = resultsDict.items()
+            
+               sorted_resultsDict_items = sorted(resultsDict_items)
                  
             else:
                # return patches
