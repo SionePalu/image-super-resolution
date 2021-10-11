@@ -11,14 +11,6 @@ from multiprocessing import Process, Manager
 import multiprocessing as mp
 from time import sleep
 
-def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
-    patchIdx = listOfLists[0]
-    print('patchIdx#', str(patchIdx))
-    patchArray = listOfLists[1]
-    predictedPatchArray = isrModel.predict(patchArray)
-    retTup = (patchIdx, predictedPatchArray)
-    return retTup
-
 def toCollectPatches(listOfTuples: list):
     lenT = len(listOfTuples)
     lenH = 0
@@ -125,3 +117,11 @@ class ImageModel:
         
         sr_img = process_output(sr_img)
         return sr_img
+    
+def predictSinglePatch(listOfLists: list, isrModel: ImageModel):
+    patchIdx = listOfLists[0]
+    print('patchIdx#', str(patchIdx))
+    patchArray = listOfLists[1]
+    predictedPatchArray = isrModel.predict(patchArray)
+    retTup = (patchIdx, predictedPatchArray)
+    return retTup
